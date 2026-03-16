@@ -17,7 +17,7 @@ function Profile() {
       <div className='flex flex-row justify-between'>
         <p className='text-white text-2xl font-bold mt-15 ml-3 '>{thisUser.name}</p>
         <div>
-          <button className='bg-black border py-2 px-4 m-2 rounded-full border-gray-500 font-semibold text-white'>
+          <button className='bg-black border py-2 px-4 m-2 rounded-full border-gray-500 font-semibold text-white cursor-pointer'>
           Edit Profile
         </button>
         </div>

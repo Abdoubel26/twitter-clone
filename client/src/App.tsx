@@ -1,6 +1,6 @@
 import Login from './pages/Login'
 import Home from './pages/Home'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Follow from "./components/Follow"
 import Messages from "./components/Messages"
 import Grok from "./components/Grok"
@@ -9,12 +9,18 @@ import Post from './components/Post'
 import Feed from "./components/Feed"
 import SearchInterface from "./components/SearchInterface"
 import Notifications from "./components/Notifications"
+import { useEffect, } from 'react'
 
 
 function App() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    navigate('/home')
+  }, [])
 
   return (
-    <div className='fixed min-w-screen'>
+    <div className=' overflow-hidden max-h-screen min-w-screen'>
     <Routes>
       <Route path='/login' element={<Login />}></Route>
       <Route path='/home' element={<Home />}>
