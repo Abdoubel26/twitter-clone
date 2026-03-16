@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 function Home() {
   return (
-    <div className="flex flex-row min-h-screen  ">
+    <div className="flex flex-row min-h-screen min-w-screen">
       <SideBar />
       <Outlet />
       <Profile />

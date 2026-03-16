@@ -2,11 +2,12 @@ import { pseudoNotifications } from '../assets/assets'
 
 function Notifications() {
   return (
-    <div className='w-[50%]  bg-black'>
-      <div className='flex flex-col bg-gray-900  w-full '>
+    <div className='w-[50%] bg-black max-h-screen'>
+      <div className='flex flex-col bg-gray-900  '>
         <h1 className='text-4xl font-extrabold text-white p-5' >Notifications</h1>
       </div>
-            <div className='flex flex-col overflow-y-scroll max-h-screen'>
+
+            <div className='flex-col overflow-y-scroll max-h-screen'>
               {pseudoNotifications.map((notification, indx) => {
                 return (
                   <div key={indx} className='flex flex-col  border-b-white border-[0.25px]'>

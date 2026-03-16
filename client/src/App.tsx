@@ -14,7 +14,7 @@ import Notifications from "./components/Notifications"
 function App() {
 
   return (
-    <div className='fixed'>
+    <div className='fixed min-w-screen'>
     <Routes>
       <Route path='/login' element={<Login />}></Route>
       <Route path='/home' element={<Home />}>

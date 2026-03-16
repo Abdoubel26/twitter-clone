@@ -9,7 +9,7 @@ function SearchInterface() {
       </div>
 
       <div className='flex-col flex items-center w-full flex-1 justify-center'>
-        <h1 className='text-white text-5xl p-3 font-bold flex-1'>Search For Other Users Posts...</h1>
+        <h1 className='text-white text-5xl p-3 font-bold flex-1'>Search For Other Users' Posts...</h1>
       </div>
       
     </div>

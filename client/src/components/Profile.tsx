@@ -8,7 +8,7 @@ function Profile() {
 
   return (
     
-    <div className='bg-black border-3 border-white text-white flex-1 overflow-y-scroll max-h-screen border-l border-l-gray-700 flex flex-col '>
+    <div className='bg-black text-white flex-1 overflow-y-scroll max-h-screen border-l border-l-gray-700 flex flex-col '>
 
       <div className='w-full h-40 relative select-none'>
           <img src={thisUser.bannerImageUrl} />
