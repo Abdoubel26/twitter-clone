@@ -12,7 +12,7 @@ function Profile() {
 
       <div className='w-full h-40 relative select-none'>
           <img src={thisUser.bannerImageUrl} />
-          <img src={thisUser.imageUrl} className='rounded-full absolute top-23 left-3 z-10 border-3 border-black' />
+          <img src={thisUser.ImageUrl} className='rounded-full absolute top-23 left-3 z-10 border-3 border-black' />
       </div>
       <div className='flex flex-row justify-between'>
         <p className='text-white text-2xl font-bold mt-15 ml-3 '>{thisUser.name}</p>
@@ -34,7 +34,7 @@ function Profile() {
             return (
               <div key={indx} className='flex flex-row border-b border-b-gray-700'>
                 <div className='h-full'>
-                <img  className='rounded-full w-13 mt-1 ml-1 border border-gray-500' src={post.poster.imageUrl}></img>
+                <img  className='rounded-full w-13 mt-1 ml-1 border border-gray-500' src={post.poster.ImageUrl}></img>
                 </div>
 
                 
@@ -43,7 +43,7 @@ function Profile() {
                   <p className='text-white font-semibold p-1 text-xl cursor-default hover:underline transition-all px-2'>{post.poster.name}</p>
                 </div>
                   <p className='text-white p-1 font-medium'>{post.text}</p>
-                  <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.imageUrl}></img>
+                  <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.ImageUrl}></img>
                   <div className='flex flex-row justify-between '>
                   <p className='text-white text-lg  cursor-pointer'>💬{Math.floor(post.likeCount - (post.likeCount/2))}</p>
                   <p className='text-lg text-white  cursor-pointer'>🔖{Math.floor(Math.abs(post.likeCount - Math.sqrt(post.likeCount)))}</p>

@@ -19,7 +19,7 @@ function Messages() {
 
         <div className='flex flex-row bg-linear-to-t from-gray-950 to-gray-900 border-gray-700 border-b items-center '>
         <p className='p-2 text-2xl cursor-pointer'>⬅️</p>
-        <img src={selectedUser.imageUrl || pseudoUsers[20].imageUrl} className='w-20 rounded-full my-2 mx-3'></img>
+        <img src={selectedUser.ImageUrl || pseudoUsers[20].ImageUrl} className='w-20 rounded-full my-2 mx-3'></img>
         <p className='text-white text-2xl font-bold'>{selectedUser.name}</p>
         </div>
 
@@ -65,7 +65,7 @@ function Messages() {
               <div className='py-5 px-5'>
                 <div className='flex flex-row justify-between items-center'>
                 <div className='flex flex-row'>
-                  <img  className='rounded-full w-16' src={user.imageUrl}></img>
+                  <img  className='rounded-full w-16' src={user.ImageUrl}></img>
                   <div>
                     <p className='text-white font-medium cursor-pointer px-2'>{user.name}</p>
                     <p className='text-white font-normal p-2 '>{clipLongText(user.bio)}</p>

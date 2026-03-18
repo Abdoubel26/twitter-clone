@@ -11,7 +11,7 @@ const selectedUserContext = createContext<selectedUserContextType>({
     selectedUser: {
         name: '',
         bio: '',
-        imageUrl: '',
+        ImageUrl: '',
         bannerImageUrl: ''
     },
     setSelectedUser: () => {}
@@ -23,7 +23,7 @@ export const SelectedUserContextProvider: FC<{children: React.ReactNode}> = ({ch
     const [selectedUser, setSelectedUser] = useState<userType>({
         name: '',
         bio: '',
-        imageUrl: '',
+        ImageUrl: '',
         bannerImageUrl: '',
     })
 
