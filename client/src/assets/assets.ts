@@ -1,7 +1,7 @@
 export const pseudoUsers = [
   { name: "Alice Johnson", imageUrl: "https://randomuser.me/api/portraits/women/1.jpg", bannerImageUrl: "https://picsum.photos/seed/1/600/200", bio: "Nature lover and photographer." },
   { name: "Michael Smith", imageUrl: "https://randomuser.me/api/portraits/men/2.jpg", bannerImageUrl: "https://picsum.photos/seed/2/600/200", bio: "Coffee enthusiast and startup nerd." },
-  { name: "Sophia Martinez", imageUrl: "https://randomuser.me/api/portraits/women/3.jpg", bannerImageUrl: "https://picsum.photos/seed/3/600/200", bio: "Traveler chasing sunsets." },
+  { name: "Sophia Martinez", imageUrl: "https://randomuser.me/api/portraits/women/3.jpg", bannerImageUrl: "https://picsum.photos/seed/3/600/200", bio: "Traveler chasing sunsets, full time computer engineer" },
   { name: "Daniel Brown", imageUrl: "https://randomuser.me/api/portraits/men/4.jpg", bannerImageUrl: "https://picsum.photos/seed/4/600/200", bio: "Full-stack developer." },
   { name: "Emma Wilson", imageUrl: "https://randomuser.me/api/portraits/women/5.jpg", bannerImageUrl: "https://picsum.photos/seed/5/600/200", bio: "Bookworm and tea addict." },
   { name: "James Anderson", imageUrl: "https://randomuser.me/api/portraits/men/6.jpg", bannerImageUrl: "https://picsum.photos/seed/6/600/200", bio: "Gym, tech, and good music." },

@@ -4,7 +4,7 @@ function Feed() {
   return (
     <div className='bg-black w-[50%] h-screen'>
       <div className='flex flex-row justify-between border-b border-b-gray-500'>
-        <h1 className='text-white transition-all border-b-4 border-blue-500 flex-1 text-center py-4 font-semibold hover:bg-gray-900' >For you</h1>
+        <h1 className='text-white transition-all select-none border-b-4 border-blue-500 flex-1 text-center py-4 font-semibold hover:bg-gray-900' >For you</h1>
         <h1 className='text-white transiton-all flex-1 text-center py-4 font-semibold  hover:bg-gray-900' >Following</h1>
         <h1 className='text-white transition-all flex-1 text-center py-4 font-semibold  hover:bg-gray-900'  >Groups</h1>
       </div>

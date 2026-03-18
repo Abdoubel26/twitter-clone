@@ -1,5 +1,6 @@
 import React from 'react'
 import { pseudoUsers } from '../assets/assets'
+import { clipLongText } from '../lib/utils'
 
 function Follow() {
   return (
@@ -18,7 +19,7 @@ function Follow() {
                   <img  className='rounded-full w-16' src={user.imageUrl}></img>
                   <div>
                     <p className='text-white font-medium cursor-pointer hover:underline px-2'>{user.name}</p>
-                    <p className='text-white font-normal p-2'>{user.bio}</p>
+                    <p className='text-white font-normal p-2'>{clipLongText(user.bio)}</p>
                   </div>
                   
                 </div>

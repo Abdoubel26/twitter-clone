@@ -20,7 +20,7 @@ function App() {
   }, [])
 
   return (
-    <div className=' overflow-hidden max-h-screen min-w-screen'>
+    <div className=' overflow-hidden max-h-screen min-w-screen select-none'>
     <Routes>
       <Route path='/login' element={<Login />}></Route>
       <Route path='/home' element={<Home />}>
@@ -30,9 +30,9 @@ function App() {
         <Route path="follow" element={<Follow />}></Route>
         <Route path="profile" element={<Profile />}></Route>
         <Route path="post" element={<Post />}></Route>
+        <Route path="ai" element={<Grok />}></Route>
       </Route>
       <Route path="/messages" element={<Messages />}></Route>
-      <Route path="/ai" element={<Grok />}></Route>
     </Routes>
     </div>
   )

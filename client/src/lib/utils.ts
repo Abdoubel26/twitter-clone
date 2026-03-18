@@ -5,3 +5,18 @@ export const formattedTime = (date: Date | string) => {
         hour12: false,
     })
 }
+
+export const clipLongText = (text: string) => {
+    if(text.length <= 50) return text
+
+    let clipped = text.slice(0, 50)
+
+    const LastSpace = clipped.lastIndexOf(' ')
+
+    if(LastSpace !== -1){
+        clipped =  clipped.slice(0, LastSpace)
+        return clipped + "..."
+    } else {
+        return clipped
+    }
+}
