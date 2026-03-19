@@ -9,12 +9,14 @@ dotenv.config()
 export const signup = async (req, res) => {
     const { name, bio, password, email } = req.body
     if(!name || !password || !email) { return res.status(400).json({ success: false, detail: "Missing required fields"}) }
-    const hashedPassword = await bcrypt.hash(password, 10)
 
     try {
+        const foundUser = await User.findOne({email: email})
+        if(foundUser) return res.status(200).json({ success: false, detail: "Email already registered"})
+        const hashedPassword = await bcrypt.hash(password, 10)
         const createdUser = new User({ name, bio, email, password: hashedPassword})
         const user = await createdUser.save()
-        const { password, ...safeUser } =  user.toObject()
+        const { password: _, ...safeUser } =  user.toObject()
         const token = jwt.sign(
             {id: user._id},
             process.env.JWT_SECRET, { expiresIn: "2d"})
@@ -26,7 +28,6 @@ export const signup = async (req, res) => {
     }
 }
 
-
 export const login = async (req, res) => {
     const { email, password } = req.body
     if(!email || !password) return res.status(400).json({ success: false, detail: "Missing required fields" })
@@ -35,13 +36,15 @@ export const login = async (req, res) => {
         const foundUser = await User.findOne({email: email})
 
         if(!foundUser) return res.status(400).json({ success: false, detail: "Email not registered"})
-
+        
         const isMatch = bcrypt.compare(password, foundUser.toObject().password)
 
         if(!isMatch) return res.status(400).json({ success: false, detail: "Wrong credentials"})
+        else {
         const { password: _, ...safeUser } = foundUser.toObject()
         const token = jwt.sign({id: foundUser._id}, process.env.JWT_SECRET, {expiresIn: "2d"})
         return res.status(200).json({ success: true, detail: 'Logged in successfully', token: token, user: safeUser })
+    } 
     } catch(e) {
         console.log(e.message)
         return res.status(500).json( { success: false, detail: `Server Error ${e.message}`, })

@@ -1,9 +1,28 @@
-import { pseudoUsers  } from '../assets/assets'
+import { useEffect, useState } from 'react'
+import { getUser } from '../lib/services'
 import { pseudoPosts } from '../assets/assets'
+import { useAuth } from '../context/authContext'
 
 function Profile() {
 
-  const thisUser = pseudoUsers[20]
+  const { token } = useAuth()
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const response = await getUser(token)
+      if(response.success){
+        setThisUser(response.user)
+      } else {
+        alert(response.detail)
+      }
+    }
+    loadUser()
+
+  }, [])
+
+  const [thisUser, setThisUser] = useState({name: "", bannerImageUrl: "", ImageUrl: " ", bio: "" })
+
+
   const thisUsersPost = pseudoPosts.filter((post) => post.poster.name === thisUser.name )
 
   return (
@@ -12,10 +31,10 @@ function Profile() {
 
       <div className='w-full h-40 relative select-none'>
           <img src={thisUser.bannerImageUrl} />
-          <img src={thisUser.ImageUrl} className='rounded-full absolute top-23 left-3 z-10 border-3 border-black' />
+          <img src={thisUser.ImageUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" } className='rounded-full w-33 absolute top-23 left-3 z-10 border-3 border-black' />
       </div>
       <div className='flex flex-row justify-between'>
-        <p className='text-white text-2xl font-bold mt-15 ml-3 '>{thisUser.name}</p>
+        <p className='text-white text-2xl font-bold mt-17 ml-3 '>{thisUser.name}</p>
         <div>
           <button className='bg-black border py-2 px-4 m-2 rounded-full border-gray-500 font-semibold text-white cursor-pointer'>
           Edit Profile
@@ -58,7 +77,7 @@ function Profile() {
         }
 
         ) :  (
-              <h1 className='text-white font-bold text-3xl p-3'>This user doesn't have any posts...</h1>
+              <h1 className='text-white font-bold text-3xl p-3'>{thisUser.name.split(" ")[0] || "This user"} doesn't have any posts yet...</h1>
             )
 
           }

@@ -1,8 +1,23 @@
-import React from 'react'
-import { pseudoUsers } from '../assets/assets'
+import React, { useEffect, useState } from 'react'
 import { clipLongText } from '../lib/utils'
+import { getAllUsers } from '../lib/services'
+
 
 function Follow() {
+
+  const [allUsers, setAllUsers] = useState([])
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const response = await getAllUsers()
+      if(response.success){
+        setAllUsers(response.users)
+      } else {
+        alert(response.detail)
+      }}
+      loadUsers()
+    }, [])
+
   return (
     <div className='bg-black w-[50%] '>
 
@@ -10,7 +25,7 @@ function Follow() {
         <h1 className='text-4xl font-extrabold text-white p-5' >Who to Follow</h1>
       </div>
       <div className='flex flex-col overflow-y-scroll max-h-[14.5%]'>
-        {pseudoUsers.map((user, indx) => {
+        {allUsers.map((user, indx) => {
           return (
             <div key={indx} className='flex flex-col  border-b-white border-[0.25px]'>
               <div className=' py-5 px-5'>

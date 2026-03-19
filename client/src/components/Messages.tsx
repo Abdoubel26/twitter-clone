@@ -1,14 +1,28 @@
 import SideBar from './SideBar'
-import { pseudoUsers  } from '../assets/assets'
 import { messages } from '../assets/assets'
 import { formattedTime, clipLongText } from '../lib/utils'
 import { useSelectedUser } from '../context/selectedUserContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getAllUsers } from '../lib/services'
 
 function Messages() {
 
+  const [allUsers, setAllUsers] = useState([])
   const { selectedUser, setSelectedUser } = useSelectedUser()
   const [searchInput, setSearchInput] = useState<string>('')
+
+    useEffect(() => {
+      const loadUsers = async () => {
+        const response = await getAllUsers()
+        if(response.success){
+          setAllUsers(response.users)
+        } else {
+          alert(response.detail)
+        }}
+        loadUsers()
+      }, [])
+
+  
 
 
   return (
@@ -19,7 +33,7 @@ function Messages() {
 
         <div className='flex flex-row bg-linear-to-t from-gray-950 to-gray-900 border-gray-700 border-b items-center '>
         <p className='p-2 text-2xl cursor-pointer'>⬅️</p>
-        <img src={selectedUser.ImageUrl || pseudoUsers[20].ImageUrl} className='w-20 rounded-full my-2 mx-3'></img>
+        <img src={selectedUser.ImageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' } className='w-20 rounded-full my-2 mx-3'></img>
         <p className='text-white text-2xl font-bold'>{selectedUser.name}</p>
         </div>
 
@@ -59,7 +73,7 @@ function Messages() {
           </div>
       <div className='flex flex-col overflow-scroll  '>
 
-        {pseudoUsers.map((user, indx) => {
+        {allUsers.map((user, indx) => {
           return ( 
           <div key={indx} onClick={() => setSelectedUser(user)}  className={`hover:bg-gray-800 cursor-pointer transition-all duration-200 ${ user.name === selectedUser?.name ? ' bg-gray-900 hover:bg-gray-900' : 'bg-black'} ${ user.name.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase()) ? '' : 'hidden' }`}>
               <div className='py-5 px-5'>

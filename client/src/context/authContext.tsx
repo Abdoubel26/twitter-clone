@@ -1,4 +1,4 @@
-import { useState, useContext, createContext, FC, type ReactNode } from "react"
+import { useState, useContext, createContext, FC, type ReactNode, useEffect } from "react"
 
 
 interface authContextType {
@@ -14,12 +14,26 @@ const authContext = createContext<authContextType>({
 })
 
 
-export const authContextProvider: FC<{chilren: ReactNode}> = ({chilren}) => {
+export const AuthContextProvider: FC<{children: ReactNode}> = ({children}) => {
+
     const [token, setToken] = useState<string>('')
+
+
+    useEffect(() => {
+        const tokenFromStorage = localStorage.getItem('token')
+    if(tokenFromStorage){
+        setToken(tokenFromStorage)
+    } else {
+        setToken('')
+    }
+    }, [])
+    
+    
 
     const setAuth = (token: string) => {
         setToken(token)
         localStorage.setItem('token', token)
+        console.log("is setAuth:" + token)
     }
 
     const logout = () => {
@@ -29,7 +43,7 @@ export const authContextProvider: FC<{chilren: ReactNode}> = ({chilren}) => {
 
     return (
         <authContext.Provider value={{token, setAuth, logout}}>
-            {chilren}
+            {children}
         </authContext.Provider>
     )
  }

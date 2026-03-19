@@ -1,7 +1,7 @@
 
 
 export const signup = async (name: string, password: string, email: string, bio: string) => {
-    const res = await fetch('http://localhost:5000', {
+    const res = await fetch('http://localhost:5000/api/user/signup', {
         method: "POST", 
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ name, email, password, bio })
@@ -10,7 +10,7 @@ export const signup = async (name: string, password: string, email: string, bio:
 } 
  
 export const login = async (email: string, password: string) => {
-    const res = await fetch('http://localhost:5000', {
+    const res = await fetch('http://localhost:5000/api/user/login', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ email, password})
@@ -30,14 +30,14 @@ export const updateUser = async (bio: string, name: string, ImageUrl: string, ba
 }
 
 export const getUser = async (token: string) => {
-    const res = await fetch('http://localhost:5000',  {
+    const res = await fetch('http://localhost:5000/api/user/me',  {
         method: 'GET',
         headers: {"Content-Type": "application/json", "authorization": `Bearer ${token}`}})
     return res.json()
 }
 
 export const getAllUsers = async () => {
-    const res = await fetch('http://localhost:5000', {
+    const res = await fetch('http://localhost:5000/api/user/all', {
         method: "GET",
         headers: {"Content-Type": "application/json"}
     })

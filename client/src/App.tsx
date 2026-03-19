@@ -9,15 +9,24 @@ import Post from './components/Post'
 import Feed from "./components/Feed"
 import SearchInterface from "./components/SearchInterface"
 import Notifications from "./components/Notifications"
-import { useEffect, } from 'react'
+import { useEffect } from 'react'
 
 
 function App() {
   const navigate = useNavigate()
 
+
+  const  localStoragetoken  = localStorage.getItem('token')
+
+
   useEffect(() => {
-    navigate('/login')
-  }, [])
+    if(localStoragetoken) {
+      navigate('/home')
+    } else {
+      navigate("/login")
+    }
+  },  [])
+  
 
   return (
     <div className=' overflow-hidden max-h-screen min-w-screen select-none'>
