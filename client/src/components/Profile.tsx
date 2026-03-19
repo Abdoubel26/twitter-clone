@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
-import { getUser } from '../lib/services'
-import { pseudoPosts } from '../assets/assets'
+import { useEffect, useState } from 'react'
+import { getUser, getPosts } from '../lib/services'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import { useThisUser } from '../context/thisUserContext'
+import type { postType } from '../lib/types'
 
 function Profile() {
   const navigate = useNavigate()
 
   const { token } = useAuth()
   const { thisUser, setThisUser} = useThisUser()
+  const [posts, setPosts] = useState<postType[]>([])
 
   useEffect(() => {
     if (!token) return
@@ -25,9 +26,21 @@ function Profile() {
 
   }, [token])
 
+  
+    useEffect(() => {
+      const loadPosts = async () => {
+        const response = await getPosts()
+        if(response.success){
+          setPosts(response.posts)
+        } else {
+          console.log(response.message)
+        }
+      }
+      loadPosts()
+    }, [])
 
 
-  const thisUsersPost = pseudoPosts.filter((post) => post.poster.name === thisUser.name )
+  const thisUsersPost = posts.filter((post) => post.poster._id === thisUser._id )
 
   return (
     
@@ -57,15 +70,14 @@ function Profile() {
             return (
               <div key={indx} className='flex flex-row border-b border-b-gray-700'>
                 <div className='h-full'>
-                <img  className='rounded-full w-13 mt-1 ml-1 border border-gray-500' src={post.poster.ImageUrl}></img>
+                <img  className='rounded-full w-12  h-12 mt-1 ml-1 border border-gray-500' src={post.poster.imageUrl}></img>
                 </div>
-
                 
                 <div>
                 <div className='flex flex-row'>
-                  <p className='text-white font-semibold p-1 text-xl cursor-default hover:underline transition-all px-2'>{post.poster.name}</p>
+                  <p className='text-white font-semibold p-1 text-md cursor-default hover:underline transition-all px-2'>{post.poster.name}</p>
                 </div>
-                  <p className='text-white p-1 font-medium'>{post.text}</p>
+                  <p className='text-white p-1 text-lg font-medium'>{post.text}</p>
                   <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.imageUrl}></img>
                   <div className='flex flex-row justify-between '>
                   <p className='text-white text-lg  cursor-pointer'>💬{Math.floor(post.likeCount - (post.likeCount/2))}</p>

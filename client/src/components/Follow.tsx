@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { clipLongText } from '../lib/utils'
 import { getAllUsers } from '../lib/services'
+import type { userType } from '../lib/types'
 
 
 function Follow() {
 
-  const [allUsers, setAllUsers] = useState([])
+  const [allUsers, setAllUsers] = useState<userType[]>([])
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -31,7 +32,7 @@ function Follow() {
               <div className=' py-5 px-5'>
                 <div className='flex flex-row justify-between items-center'>
                 <div className='flex flex-row'>
-                  <img  className='rounded-full w-16' src={user.ImageUrl}></img>
+                  <img  className='rounded-full w-16' src={user.imageUrl}></img>
                   <div>
                     <p className='text-white font-medium cursor-pointer hover:underline px-2'>{user.name}</p>
                     <p className='text-white font-normal p-2'>{clipLongText(user.bio)}</p>
