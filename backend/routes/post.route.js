@@ -1,4 +1,4 @@
-import { createPost, deletePost, getPosts} from "../controllers/post.controllers.js"
+import { createPost, deletePost, getPosts, toggleLike} from "../controllers/post.controllers.js"
 import e from 'express'
 import authMiddleware from "../middleware/auth.js"
 
@@ -7,6 +7,8 @@ const router = e.Router()
 router.get('/', getPosts)
 
 router.post('/create', authMiddleware , createPost)
+
+router.put('/like', authMiddleware, toggleLike)
 
 router.delete('/delete', authMiddleware , deletePost)
 

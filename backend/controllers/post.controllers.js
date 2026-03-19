@@ -49,3 +49,22 @@ export const deletePost  = async (req, res) => {
     }
 }
 
+export const toggleLike = async (req, res) => {
+    const { id } = req.id
+    const { postId } = req.body
+    if(!postId) return res.status(400).json({ success: false, message: "Post Id not Provided" })
+    try {
+        const post = await Post.findById(postId)
+        if(!post.likes.some(like => like.toString() === id)){
+            post.likes.push(id)
+            await post.save()
+            return res.status(200).json({ success: true, added: true})
+        } else {
+            post.likes = post.likes.filter(like => like.toString() !== id)
+            await post.save()
+            return res.status(200).json({ success: true, added: false})
+        }
+    }  catch(e) {
+        return res.status(500).json({ success: false, message: `Server Error: ${e.message}` })
+    }    
+}

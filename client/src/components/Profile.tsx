@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getUser, getPosts } from '../lib/services'
+import { getUser, getPosts, toggleLike, deletePost } from '../lib/services'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import { useThisUser } from '../context/thisUserContext'
@@ -39,6 +39,31 @@ function Profile() {
       loadPosts()
     }, [])
 
+    const removePost = async (id: string) => {
+    const response = await deletePost(id, token)
+    if(response.success) {
+      setPosts(posts.filter(post => post._id !== id))
+    } else {
+      alert(response.message)
+    }
+  }
+
+    const clickLike = async (postId: string) => {
+        const response = await toggleLike(postId, token)
+        if(response.success){
+          const newPosts = posts.map((post) => {
+          if(response.added){
+            post.likes.push(thisUser._id)
+          } else (
+            post.likes = post.likes.filter(like => like !== thisUser._id)
+          )
+          return post
+          })
+          setPosts(newPosts)
+        }
+      }
+    
+
 
   const thisUsersPost = posts.filter((post) => post.poster._id === thisUser._id )
 
@@ -47,7 +72,7 @@ function Profile() {
     <div className='bg-black text-white flex-1 overflow-y-scroll max-h-screen border-l border-l-gray-700 flex flex-col '>
 
       <div className='w-full h-40 relative select-none'>
-          <img className='h-40 w-full' src={thisUser.bannerImageUrl} />
+          <img className='h-40 w-full' src={thisUser.bannerImageUrl || ' '} />
           <img src={thisUser.imageUrl} className='rounded-full w-33 h-33 absolute top-23 left-3 z-10 border-3 border-black' />
       </div>
       <div className='flex flex-row justify-between'>
@@ -73,16 +98,16 @@ function Profile() {
                 <img  className='rounded-full w-12  h-12 mt-1 ml-1 border border-gray-500' src={post.poster.imageUrl}></img>
                 </div>
                 
-                <div>
-                <div className='flex flex-row'>
-                  <p className='text-white font-semibold p-1 text-md cursor-default hover:underline transition-all px-2'>{post.poster.name}</p>
+                <div className='w-full'>
+                <div className='flex justify-between flex-row w-full'>
+                  <p className='text-white font-semibold p-1 text-md cursor-default hover:underline transition-all px-2'>{post.poster.name}</p> <span className={`p-2  cursor-pointer text-2xl ${thisUser._id === post.poster._id ? '' : 'hidden'}`} onClick={() => removePost(post._id)}>🗑️</span>
                 </div>
                   <p className='text-white p-1 text-lg font-medium'>{post.text}</p>
                   <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.imageUrl}></img>
-                  <div className='flex flex-row justify-between '>
-                  <p className='text-white text-lg  cursor-pointer'>💬{Math.floor(post.likeCount - (post.likeCount/2))}</p>
-                  <p className='text-lg text-white  cursor-pointer'>🔖{Math.floor(Math.abs(post.likeCount - Math.sqrt(post.likeCount)))}</p>
-                  <p className='text-white text-lg  cursor-pointer'>❤️<span>{post.likeCount}</span></p>
+                  <div className='flex w-100 flex-row justify-between '>
+                  <p className='text-white text-lg  cursor-pointer'>💬{}</p>
+                  <p className='text-lg text-white  cursor-pointer'>🔖{}</p>
+                  <p className='text-white text-lg cursor-pointer' onClick={() => clickLike(post._id)}>❤️<span>{post.likes.length}</span></p>
                 </div>
                 </div>
                 

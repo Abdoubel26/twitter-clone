@@ -10,7 +10,8 @@ export interface userType {
 
 export interface postType {
     text: string,
+    _id: string,
     imageUrl: string,
-    likeCount: number,
+    likes: string[],
     poster: userType
 }

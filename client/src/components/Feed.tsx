@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getPosts, deletePost } from "../lib/services"
+import { getPosts, deletePost, toggleLike } from "../lib/services"
 import { useThisUser } from "../context/thisUserContext"
 import { useAuth } from "../context/authContext"
 
@@ -8,7 +8,7 @@ type post = {
   _id: string,
   text: string,
   imageUrl: string,
-  likeCount: number,
+  likes: string[],
   poster: {
     name: string,
     imageUrl: string
@@ -38,12 +38,19 @@ function Feed() {
     loadPosts()
   }, [])
 
-  const removePost = async (id: string) => {
-    const response = await deletePost(id, token)
-    if(response.success) {
-      setPosts(posts.filter(post => post._id !== id))
-    } else {
-      alert(response.message)
+
+  const clickLike = async (postId: string) => {
+    const response = await toggleLike(postId, token)
+    if(response.success){
+      const newPosts = posts.map((post) => {
+      if(response.added){
+        post.likes.push(thisUser._id)
+      } else (
+        post.likes = post.likes.filter(like => like !== thisUser._id)
+      )
+      return post
+      })
+      setPosts(newPosts)
     }
   }
 
@@ -69,15 +76,15 @@ function Feed() {
                 
                 <div className="w-full">
 
-                <div className='flex flex-row justify-between w-full'>
-                  <p className='text-white font-semibold p-2 text-lg  cursor-default hover:underline transition-all '>{post.poster.name}</p>  <span className={`p-2  cursor-pointer text-2xl ${thisUser._id === post.poster._id ? '' : 'hidden'}`} onClick={() => removePost(post._id)}>🗑️</span>
+                <div className='flex flex-row justify-between'>
+                  <p className='text-white font-semibold p-2 text-lg  cursor-default hover:underline transition-all '>{post.poster.name}</p>  
                 </div>
                   <p className='text-white p-1 text-xl font-medium'>{post.text}</p>
                   <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.imageUrl}></img>
                   <div className='flex flex-row justify-between w-100 '>
-                  <p className='text-white text-lg  cursor-pointer'>💬{Math.floor(post.likeCount - (post.likeCount/2))}</p>
-                  <p className='text-lg text-white  cursor-pointer'>🔖{Math.floor(Math.abs(post.likeCount - Math.sqrt(post.likeCount)))}</p>
-                  <p className='text-white text-lg  cursor-pointer'>❤️<span>{post.likeCount}</span></p>
+                  <p className='text-white text-lg  cursor-pointer'>💬{}</p>
+                  <p className='text-lg text-white  cursor-pointer'>🔖{}</p>
+                  <p className='text-white text-lg  cursor-pointer' onClick={() => clickLike(post._id)}>❤️<span>{post.likes.length}</span></p>
                 </div>
                 </div>
                 

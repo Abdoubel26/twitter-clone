@@ -73,13 +73,25 @@ export const addPost = async (post: postType, token: string) => {
     return res.json()
 }
 
-export const deletePost = async (id, token) => {
+export const deletePost = async (id: string, token: string) => {
     const res = await fetch(`${URL}/api/post/delete?postId=${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json", 
             "authorization": `Bearer ${token}`
         }
+    })
+    return res.json()
+}
+
+export const toggleLike = async (postId: string, token: string) => {
+    const res = await fetch(`${URL}/api/post/like`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({postId: postId})
     })
     return res.json()
 }
