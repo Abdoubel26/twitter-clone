@@ -5,9 +5,11 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { SelectedUserContextProvider } from './context/selectedUserContext.tsx'
 import { AuthContextProvider } from './context/authContext.tsx'
+import { ThisUserContextProvider } from './context/thisUserContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <ThisUserContextProvider>
     <AuthContextProvider>
     <SelectedUserContextProvider>
     <BrowserRouter>
@@ -15,5 +17,6 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
     </SelectedUserContextProvider>
     </AuthContextProvider>
+    </ThisUserContextProvider>
   </StrictMode>,
 )

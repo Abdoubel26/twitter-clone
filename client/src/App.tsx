@@ -9,6 +9,7 @@ import Post from './components/Post'
 import Feed from "./components/Feed"
 import SearchInterface from "./components/SearchInterface"
 import Notifications from "./components/Notifications"
+import EditProfile from './components/EditProfile'
 import { useEffect } from 'react'
 
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="profile" element={<Profile />}></Route>
         <Route path="post" element={<Post />}></Route>
         <Route path="ai" element={<Grok />}></Route>
+        <Route path="edit_profile" element={<EditProfile />}></Route>
       </Route>
       <Route path="/messages" element={<Messages />}></Route>
     </Routes>

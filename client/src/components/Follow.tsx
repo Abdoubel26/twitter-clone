@@ -24,7 +24,7 @@ function Follow() {
       <div className='flex flex-col bg-gray-900 '>
         <h1 className='text-4xl font-extrabold text-white p-5' >Who to Follow</h1>
       </div>
-      <div className='flex flex-col overflow-y-scroll max-h-[14.5%]'>
+      <div className='flex flex-col overflow-y-scroll flex-1 '>
         {allUsers.map((user, indx) => {
           return (
             <div key={indx} className='flex flex-col  border-b-white border-[0.25px]'>

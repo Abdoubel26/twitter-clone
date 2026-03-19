@@ -20,7 +20,8 @@ export const login = async (email: string, password: string) => {
 
 
 export const updateUser = async (bio: string, name: string, ImageUrl: string, bannerImageUrl: string, token: string) => {
-    const res = await fetch('http://localhost:5000',  {
+    console.log("token in update user: " + token)
+    const res = await fetch('http://localhost:5000/api/user/update',  {
         method: 'PUT',
         headers: {"Content-Type": "application/json", "authorization": `Bearer ${token}`
         },

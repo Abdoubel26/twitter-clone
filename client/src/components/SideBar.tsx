@@ -24,7 +24,7 @@ function SideBar() {
   }
 
   return (
-    <div className="flex flex-col pr-2 pt-2 gap-4 min-h-screen scroll-m-0 w-40 items-end overflow-hidden bg-black border-r-5 border-r-gray-700">
+    <div className=" flex flex-col pr-2 pt-2 gap-4 min-h-screen scroll-m-0 w-40 items-end overflow-hidden border-r-5 border-r-gray-700">
         <NavLink to='/home' className={({ isActive }) => isActive ? baseClasses : baseClasses} ><div><HomeIcon /></div></NavLink>
         <NavLink to='/home/search' className={({ isActive }) => isActive ? activeClasses + baseClasses : baseClasses}><div><SearchIcon /></div></NavLink>
         <NavLink to='/home/notifications' className={({ isActive }) => isActive ? activeClasses + baseClasses : baseClasses}><div ><BellIcon /></div></NavLink>

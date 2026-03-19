@@ -58,7 +58,7 @@ export const updateUser = async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {bio, name, ImageUrl, bannerImageUrl})
         const { password, ...safeUser} = updatedUser.toObject()
-        return res.status(200).json({ success: true, user: safeUser })
+        return res.status(200).json({ success: true, user: safeUser})
     } catch(e) {
         return res.status(500).json({ success: false, detail: ` Server Error ${e.message}`})
     }
@@ -69,6 +69,7 @@ export const getUser = async (req, res) => {
     const { id } = req.id 
     try {
         const thisUser = await User.findById(id)
+        if(!thisUser) return res.status(404).json({ success: false, detail: "User not found at getUser"})
         const { password, ...safeUser} = thisUser.toObject()
         return res.status(200).json({ success: true, detail: "User Found", user: safeUser})
     } catch(e) {

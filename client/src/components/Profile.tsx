@@ -1,26 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getUser } from '../lib/services'
 import { pseudoPosts } from '../assets/assets'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
+import { useThisUser } from '../context/thisUserContext'
 
 function Profile() {
+  const navigate = useNavigate()
 
   const { token } = useAuth()
+  const { thisUser, setThisUser} = useThisUser()
 
   useEffect(() => {
+    if (!token) return
     const loadUser = async () => {
       const response = await getUser(token)
       if(response.success){
         setThisUser(response.user)
       } else {
-        alert(response.detail)
+        alert(response.detail || 'Failed to load user profile')
       }
     }
     loadUser()
 
-  }, [])
+  }, [token])
 
-  const [thisUser, setThisUser] = useState({name: "", bannerImageUrl: "", ImageUrl: " ", bio: "" })
 
 
   const thisUsersPost = pseudoPosts.filter((post) => post.poster.name === thisUser.name )
@@ -30,13 +34,13 @@ function Profile() {
     <div className='bg-black text-white flex-1 overflow-y-scroll max-h-screen border-l border-l-gray-700 flex flex-col '>
 
       <div className='w-full h-40 relative select-none'>
-          <img src={thisUser.bannerImageUrl} />
-          <img src={thisUser.ImageUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" } className='rounded-full w-33 absolute top-23 left-3 z-10 border-3 border-black' />
+          <img className='h-40 w-full' src={thisUser.bannerImageUrl} />
+          <img src={thisUser.ImageUrl} className='rounded-full w-33 h-33 absolute top-23 left-3 z-10 border-3 border-black' />
       </div>
       <div className='flex flex-row justify-between'>
         <p className='text-white text-2xl font-bold mt-17 ml-3 '>{thisUser.name}</p>
         <div>
-          <button className='bg-black border py-2 px-4 m-2 rounded-full border-gray-500 font-semibold text-white cursor-pointer'>
+          <button onClick={() => navigate('/home/edit_profile')} className='bg-black border py-2 px-4 m-2 rounded-full border-gray-500 font-semibold text-white cursor-pointer'>
           Edit Profile
         </button>
         </div>
