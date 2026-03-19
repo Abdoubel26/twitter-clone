@@ -1,3 +1,5 @@
+import type { relationType } from "./types"
+
 export const formattedTime = (date: Date | string) => {
     return new Date(date).toLocaleTimeString('en-US', {
         hour: "2-digit", 
@@ -19,4 +21,9 @@ export const clipLongText = (text: string) => {
     } else {
         return clipped
     }
+}
+
+
+export const checkRelation:(follwer: string, following: string, relation: relationType) => boolean = (follower: string, following: string, relation: relationType) => {
+    return follower.toString() === relation.follower.toString() && following.toString() === relation.following.toString()
 }

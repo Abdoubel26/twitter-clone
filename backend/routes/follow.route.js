@@ -1,12 +1,13 @@
 import e from "express"
-import { follow, unfollow } from "../controllers/follow.controllers"
-import authMiddleware from '../middleware/auth'
-
+import { follow, unfollow, getFollows } from "../controllers/follow.controllers.js"
+import authMiddleware from '../middleware/auth.js'
 
 const router = e.Router()
 
-router.post('/follow', authMiddleware, follow)
+router.get('/get', getFollows)
 
-router.post('/unfollow', authMiddleware, unfollow)
+router.post('/post', authMiddleware, follow)
+
+router.delete('/unfollow', authMiddleware, unfollow)
 
 export default router

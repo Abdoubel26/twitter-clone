@@ -95,3 +95,35 @@ export const toggleLike = async (postId: string, token: string) => {
     })
     return res.json()
 }
+
+export const getFollows = async () => {
+    const res = await fetch(`${URL}/api/follow/get`, {
+        method: 'GET',
+        headers: {"Content-Type": "application/json"}
+    })
+    return res.json()
+}
+
+ 
+export const follow = async (followingId: string, token: string) => {
+    const res = await fetch(`${URL}/api/follow/post`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({followingId: followingId})
+    })
+    return res.json()
+}
+
+
+export const unfollow = async (relationId: string, token: string) => { 
+    const res = await fetch(`${URL}/api/follow/unfollow`, {
+        method: "DELETE", 
+        headers:  {"Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({relationId: relationId})
+    })
+    return res.json()
+}
