@@ -4,14 +4,14 @@ interface thisUserContextType {
     thisUser: {
         name: string,
         bio: string,
-        ImageUrl: string,
+        imageUrl: string,
         bannerImageUrl: string,
         email?: string
     },
     setThisUser: React.Dispatch<React.SetStateAction<{
     name: string;
     bio: string;
-    ImageUrl: string;
+    imageUrl: string;
     bannerImageUrl: string;
     email: string;
 }>>
@@ -21,7 +21,7 @@ const thisUserContext = createContext<thisUserContextType>({
     thisUser: {
         name: '',
         bio: '', 
-        ImageUrl: '',
+        imageUrl: '',
         bannerImageUrl: '',
     }, 
     setThisUser: () => {}
@@ -33,7 +33,7 @@ export const ThisUserContextProvider: FC<{children: ReactNode}> = ({children}) =
     const [thisUser, setThisUser] = useState({
         name: "",
         bio: "",
-        ImageUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+        imageUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         bannerImageUrl: "",
         email: "",
     })

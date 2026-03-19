@@ -18,7 +18,7 @@ function Profile() {
       if(response.success){
         setThisUser(response.user)
       } else {
-        alert(response.detail || 'Failed to load user profile')
+        alert(response.message || 'Failed to load user profile')
       }
     }
     loadUser()
@@ -35,7 +35,7 @@ function Profile() {
 
       <div className='w-full h-40 relative select-none'>
           <img className='h-40 w-full' src={thisUser.bannerImageUrl} />
-          <img src={thisUser.ImageUrl} className='rounded-full w-33 h-33 absolute top-23 left-3 z-10 border-3 border-black' />
+          <img src={thisUser.imageUrl} className='rounded-full w-33 h-33 absolute top-23 left-3 z-10 border-3 border-black' />
       </div>
       <div className='flex flex-row justify-between'>
         <p className='text-white text-2xl font-bold mt-17 ml-3 '>{thisUser.name}</p>
@@ -66,7 +66,7 @@ function Profile() {
                   <p className='text-white font-semibold p-1 text-xl cursor-default hover:underline transition-all px-2'>{post.poster.name}</p>
                 </div>
                   <p className='text-white p-1 font-medium'>{post.text}</p>
-                  <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.ImageUrl}></img>
+                  <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.imageUrl}></img>
                   <div className='flex flex-row justify-between '>
                   <p className='text-white text-lg  cursor-pointer'>💬{Math.floor(post.likeCount - (post.likeCount/2))}</p>
                   <p className='text-lg text-white  cursor-pointer'>🔖{Math.floor(Math.abs(post.likeCount - Math.sqrt(post.likeCount)))}</p>

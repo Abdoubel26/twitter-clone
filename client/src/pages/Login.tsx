@@ -25,7 +25,7 @@ function Login() {
           navigate('/home')
           alert("Signed up successfully")
         } else {
-          alert(response.detail)
+          alert(response.message)
           setInputUser({name: "", bio: "", email: "", password: ""})
         }
       } else if(currState === "Login") {
@@ -35,7 +35,7 @@ function Login() {
           navigate('/home')
           setInputUser({name: " ", bio: " ", email: " ", password: " "})
         } else {
-          alert(response.detail)
+          alert(response.message)
         }
       }
     }

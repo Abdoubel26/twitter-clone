@@ -13,7 +13,7 @@ function Follow() {
       if(response.success){
         setAllUsers(response.users)
       } else {
-        alert(response.detail)
+        alert(response.message)
       }}
       loadUsers()
     }, [])

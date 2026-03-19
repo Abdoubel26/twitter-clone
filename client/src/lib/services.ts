@@ -19,13 +19,13 @@ export const login = async (email: string, password: string) => {
 }
 
 
-export const updateUser = async (bio: string, name: string, ImageUrl: string, bannerImageUrl: string, token: string) => {
+export const updateUser = async (bio: string, name: string, imageUrl: string, bannerImageUrl: string, token: string) => {
     console.log("token in update user: " + token)
     const res = await fetch('http://localhost:5000/api/user/update',  {
         method: 'PUT',
         headers: {"Content-Type": "application/json", "authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ bio, name, ImageUrl, bannerImageUrl})
+        body: JSON.stringify({ bio, name, imageUrl, bannerImageUrl})
     })
     return res.json()
 }

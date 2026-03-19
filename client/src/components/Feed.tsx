@@ -14,7 +14,7 @@ function Feed() {
              return (
               <div key={indx} className='flex flex-row border-b border-b-gray-700'>
                 <div className='h-full'>
-                <img  className='rounded-full w-13 mt-1 ml-1 border border-gray-500' src={post.poster.ImageUrl}></img>
+                <img  className='rounded-full w-13 mt-1 ml-1 border border-gray-500' src={post.poster.imageUrl}></img>
                 </div>
 
                 
@@ -23,7 +23,7 @@ function Feed() {
                   <p className='text-white font-semibold p-1 text-xl cursor-default hover:underline transition-all '>{post.poster.name}</p>
                 </div>
                   <p className='text-white p-1 font-medium'>{post.text}</p>
-                  <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.ImageUrl}></img>
+                  <img className='w-100 border-gray-800 border max-h-120 mt-1 rounded-2xl' src={post.imageUrl}></img>
                   <div className='flex flex-row justify-between '>
                   <p className='text-white text-lg  cursor-pointer'>💬{Math.floor(post.likeCount - (post.likeCount/2))}</p>
                   <p className='text-lg text-white  cursor-pointer'>🔖{Math.floor(Math.abs(post.likeCount - Math.sqrt(post.likeCount)))}</p>

@@ -3,6 +3,6 @@ export interface userType {
     email?: string,
     password?: string,
     bio: string,
-    ImageUrl: string,
+    imageUrl: string,
     bannerImageUrl: string
 }
