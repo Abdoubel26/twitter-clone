@@ -116,7 +116,6 @@ export const follow = async (followingId: string, token: string) => {
     return res.json()
 }
 
-
 export const unfollow = async (relationId: string, token: string) => { 
     const res = await fetch(`${URL}/api/follow/unfollow`, {
         method: "DELETE", 
@@ -124,6 +123,16 @@ export const unfollow = async (relationId: string, token: string) => {
             "authorization": `Bearer ${token}`
         },
         body: JSON.stringify({relationId: relationId})
+    })
+    return res.json()
+}
+
+export const getNotifications = async (token: string) => {
+    const res = await fetch(`${URL}/api/notification/get`, {
+        method: 'GET',
+        headers:  {"Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        }
     })
     return res.json()
 }

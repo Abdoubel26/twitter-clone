@@ -11,22 +11,22 @@ import SearchInterface from "./components/SearchInterface"
 import Notifications from "./components/Notifications"
 import EditProfile from './components/EditProfile'
 import { useEffect } from 'react'
-
+import { useAuth } from './context/authContext'
 
 function App() {
+  const { token, isReady} = useAuth()
   const navigate = useNavigate()
 
 
-  const  localStoragetoken  = localStorage.getItem('token')
-
-
   useEffect(() => {
-    if(localStoragetoken) {
+    if(isReady){
+      if(token) {
       navigate('/home')
     } else {
       navigate("/login")
     }
-  },  [])
+    }
+  },  [isReady])
   
 
   return (

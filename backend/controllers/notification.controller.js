@@ -6,6 +6,8 @@ export const getNotifs = async (req, res) => {
     const { id } = req.id
     try {
         const notifs = await Notification.find({ to: id})
+        .populate('from')
+        .populate('to')
         return res.status(200).json( { success: true, message: "notifications fetched from database", notifications: notifs })
     }
     catch(e){

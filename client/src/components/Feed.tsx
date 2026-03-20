@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getPosts, deletePost, toggleLike } from "../lib/services"
+import { getPosts, toggleLike } from "../lib/services"
 import { useThisUser } from "../context/thisUserContext"
 import { useAuth } from "../context/authContext"
 

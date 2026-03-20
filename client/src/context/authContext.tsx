@@ -5,28 +5,31 @@ interface authContextType {
     token: string,
     setAuth: (token: string) => void,
     logout: () => void,
+    isReady: boolean
 }
 
 const authContext = createContext<authContextType>({
     token: "",
     setAuth: () => {},
     logout: () => {},
+    isReady: false,
 })
 
 
 export const AuthContextProvider: FC<{children: ReactNode}> = ({children}) => {
 
     const [token, setToken] = useState<string>('')
+    const [isReady, setIsReady] = useState<boolean>(false)
 
 
     useEffect(() => {
         const tokenFromStorage = localStorage.getItem('token')
     if(tokenFromStorage){
         setToken(tokenFromStorage)
-    } else {
-        setToken('')
+    } 
+    setIsReady(true)
     }
-    }, [])
+    , [])
     
     
 
@@ -42,7 +45,7 @@ export const AuthContextProvider: FC<{children: ReactNode}> = ({children}) => {
     }
 
     return (
-        <authContext.Provider value={{token, setAuth, logout}}>
+        <authContext.Provider value={{token, setAuth, logout, isReady}}>
             {children}
         </authContext.Provider>
     )

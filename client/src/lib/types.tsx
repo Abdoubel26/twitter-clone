@@ -21,3 +21,13 @@ export interface relationType {
     follower: string,
     following: string,
 }
+
+
+export interface notifType {
+    _id: string, 
+    type: "follow" | "like",
+    from: userType,
+    to: userType,
+    CreatedAt: Date,
+    seen: boolean
+}
