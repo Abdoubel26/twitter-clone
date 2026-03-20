@@ -1,4 +1,4 @@
-import { type SyntheticEvent , useEffect} from 'react'
+import { type SyntheticEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { updateUser } from '../lib/services'
 import { useAuth } from '../context/authContext'

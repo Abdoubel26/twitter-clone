@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import Follow from '../Models/followModel.js'
+import {createNotification} from "./notification.controller.js"
 
 export const getFollows = async (req, res) => {
     try {
@@ -21,11 +22,12 @@ export const follow = async (req, res) => {
     try {
         const followRelation = new Follow({follower: id, following: followingId})
         await followRelation.save()
+        await createNotification(id, followingId, "follow")
         return res.status(201).json({ success: true, message: "followed successfully", relation: followRelation})
     }  
     catch(e) {
         return res.status(500).json({ success: false, message: `Server Error: ${e.message}`})
-    }
+    } 
 }
 
 export const unfollow = async  (req, res) => {

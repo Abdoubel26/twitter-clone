@@ -1,5 +1,5 @@
 import e from "express"
-import { follow, unfollow, getFollows } from "../controllers/follow.controllers.js"
+import { follow, unfollow, getFollows } from "../controllers/follow.controller.js"
 import authMiddleware from '../middleware/auth.js'
 
 const router = e.Router()

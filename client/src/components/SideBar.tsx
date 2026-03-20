@@ -34,7 +34,7 @@ function SideBar() {
         <div onClick={() => setIsVisible(prev => !prev)}  className="hover:bg-gray-900 rounded-full p-2"><ThreeDots /></div>
         <NavLink to='/home/post'><div className="bg-white hover:bg-gray-200 transition-all mr-1 mt-1 rounded-full"><PenIcon /></div></NavLink>
 
-        <div onClick={handlLogoutClick} className={` ${isVisible ? 'absolute' : 'hidden'} text-white text-2xl bottom-25 left-1.5 font-bold bg-black shadow-gray-500 shadow p-2 rounded-2xl select-none`}>
+        <div onClick={handlLogoutClick} className={` ${isVisible ? 'absolute' : 'hidden'} text-white text-xl bottom-23 left-1.5 font-bold bg-black border-2 border-gray-600 p-2 rounded-2xl select-none`}>
           Logout
         </div>
     </div>

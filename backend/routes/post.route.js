@@ -1,4 +1,4 @@
-import { createPost, deletePost, getPosts, toggleLike} from "../controllers/post.controllers.js"
+import { createPost, deletePost, getPosts, toggleLike} from "../controllers/post.controller.js"
 import e from 'express'
 import authMiddleware from "../middleware/auth.js"
 

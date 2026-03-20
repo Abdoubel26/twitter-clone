@@ -1,5 +1,7 @@
 import Post from "../Models/postModel.js"
 import dotenv from "dotenv"
+import {createNotification} from "./notification.controller.js"
+
 
 
 dotenv.config()
@@ -58,6 +60,9 @@ export const toggleLike = async (req, res) => {
         if(!post.likes.some(like => like.toString() === id)){
             post.likes.push(id)
             await post.save()
+            if(id !== post.toObject().poster._id){
+                await createNotification(id, postId)
+            }
             return res.status(200).json({ success: true, added: true})
         } else {
             post.likes = post.likes.filter(like => like.toString() !== id)
