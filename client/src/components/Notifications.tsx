@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import FollowIcon from '../icons/FollowIcon'
 import { type notifType } from '../lib/types'
-import { getNotifications } from '../lib/services'
+import { getNotifications, seeNotifs } from '../lib/services'
 import { useAuth } from '../context/authContext'
 import { formattedTime } from '../lib/utils'
 
@@ -18,8 +18,17 @@ function Notifications() {
         setNotifs(response.notifications)
       }
     }
+    const removeBadge = async () => {
+     const response = await seeNotifs(token)
+      if(response.success){
+        console.log(response.message)
+      }
+    }
     
-    if(isReady) loadNotifs()
+    if(isReady) {
+      loadNotifs()
+      removeBadge()
+     }
   }, [isReady])
 
   return (

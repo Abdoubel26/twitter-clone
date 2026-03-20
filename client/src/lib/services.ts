@@ -136,3 +136,25 @@ export const getNotifications = async (token: string) => {
     })
     return res.json()
 }
+
+export const countUnseen = async (token: string) => {
+    const res = await fetch(`${URL}/api/notification/count`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json", 
+            "authorization": `Bearer ${token}`
+        }
+    })
+    return res.json()
+}
+
+export const seeNotifs = async (token: string) => {
+    const res = await fetch(`${URL}/api/notification/see`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        }
+    })
+    return res.json()
+}

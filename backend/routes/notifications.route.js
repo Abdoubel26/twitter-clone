@@ -10,5 +10,5 @@ router.get('/count', authMiddleware, countUnseenNotifs)
 
 router.put('/see', authMiddleware, seeNotifs)
 
-
+ 
 export default router
