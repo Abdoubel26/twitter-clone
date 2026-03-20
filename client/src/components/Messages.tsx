@@ -4,10 +4,13 @@ import { formattedTime, clipLongText } from '../lib/utils'
 import { useSelectedUser } from '../context/selectedUserContext'
 import { useState, useEffect } from 'react'
 import { getAllUsers } from '../lib/services'
+import { type userType } from '../lib/types'
+
+
 
 function Messages() {
 
-  const [allUsers, setAllUsers] = useState([])
+  const [allUsers, setAllUsers] = useState<userType[]>([])
   const { selectedUser, setSelectedUser } = useSelectedUser()
   const [searchInput, setSearchInput] = useState<string>('')
 
@@ -79,7 +82,7 @@ function Messages() {
               <div className='py-5 px-5'>
                 <div className='flex flex-row justify-between items-center'>
                 <div className='flex flex-row'>
-                  <img  className='rounded-full w-16' src={user.ImageUrl}></img>
+                  <img  className='rounded-full w-16' src={user.imageUrl}></img>
                   <div>
                     <p className='text-white font-medium cursor-pointer px-2'>{user.name}</p>
                     <p className='text-white font-normal p-2 '>{clipLongText(user.bio)}</p>
