@@ -158,3 +158,11 @@ export const seeNotifs = async (token: string) => {
     })
     return res.json()
 }
+
+export const getMessages = async (senderId: string, receiverId: string) => {
+    const res = await fetch(`${URL}/api/message/get?senderId=${senderId}&receiverId=${receiverId}`, {
+        method: 'GET',
+        headers: {"Content-Type": "application/json"}
+    })
+    return res.json()
+}

@@ -64,7 +64,7 @@ function Feed() {
         <h1 className='text-white transiton-all flex-1 text-center py-4 font-semibold  hover:bg-gray-900' >Following</h1>
         <h1 className='text-white transition-all flex-1 text-center py-4 font-semibold  hover:bg-gray-900'  >Groups</h1>
       </div>
-      <div className='overflow-y-scroll h-[89%]'>
+      <div className='overflow-y-scroll flex flex-col-reverse h-[89%]'>
         {
           posts.map((post, indx) => {
              return (

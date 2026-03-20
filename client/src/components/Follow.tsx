@@ -68,7 +68,7 @@ function Follow() {
               <div className=' py-5 px-5'>
                 <div className='flex flex-row justify-between items-center'>
                 <div className='flex flex-row'>
-                  <img  className='rounded-full w-16' src={user.imageUrl}></img>
+                  <img  className='rounded-full h-16 object-cover w-16' src={user.imageUrl}></img>
                   <div>
                     <p className='text-white font-medium cursor-pointer hover:underline px-2'>{user.name}</p>
                     <p className='text-white font-normal p-2'>{clipLongText(user.bio)}</p>

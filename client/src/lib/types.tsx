@@ -31,3 +31,12 @@ export interface notifType {
     CreatedAt: Date,
     seen: boolean
 }
+
+export interface messageType {
+    _id?: string,
+    senderId: string,
+    receiverId: string,
+    text: string,
+    seen?: boolean,
+    createdAt?: Date,
+}

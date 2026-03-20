@@ -4,32 +4,31 @@ import { type userType } from "../lib/types";
 type selectedUserContextType = {
     selectedUser: userType,
     setSelectedUser: (user: userType) => void
+    initState: userType,
 }
 
-
-const selectedUserContext = createContext<selectedUserContextType>({
-    selectedUser: {
+const initState = {
+        _id: '',
         name: '',
         bio: '',
         imageUrl: '',
         bannerImageUrl: ''
-    },
-    setSelectedUser: () => {}
+    }
+
+const selectedUserContext = createContext<selectedUserContextType>({
+    selectedUser: initState ,
+    setSelectedUser: () => {},
+    initState: initState,
 })
 
 
 export const SelectedUserContextProvider: FC<{children: React.ReactNode}> = ({children}) => {
 
-    const [selectedUser, setSelectedUser] = useState<userType>({
-        name: '',
-        bio: '',
-        imageUrl: '',
-        bannerImageUrl: '',
-    })
+    const [selectedUser, setSelectedUser] = useState<userType>(initState)
 
 
     return (
-        <selectedUserContext.Provider value={{ selectedUser, setSelectedUser}}>
+        <selectedUserContext.Provider value={{ selectedUser, setSelectedUser, initState}}>
             {children}
         </selectedUserContext.Provider>
     )
