@@ -2,12 +2,14 @@ import SideBar from './SideBar'
 import { formattedTime, clipLongText } from '../lib/utils'
 import { useSelectedUser } from '../context/selectedUserContext'
 import { useState, useEffect, useRef } from 'react'
-import { getAllUsers, getMessages } from '../lib/services'
+import { getAllUsers, getMessages, getUnseenMessages, seeMessages } from '../lib/services'
 import { type userType, type messageType } from '../lib/types'
 import { useSocket } from '../context/socketContext'
 import { useThisUser } from '../context/thisUserContext'
+import { useAuth } from '../context/authContext'
 
 function Messages() {
+  const { token, isReady } = useAuth()
   const { thisUser } = useThisUser()
   const { socket } = useSocket()
   const { selectedUser, setSelectedUser, initState } = useSelectedUser()
@@ -16,8 +18,11 @@ function Messages() {
   const [messages, setMessages] = useState<messageType[]>([])
   const [allUsers, setAllUsers] = useState<userType[]>([])
   const [searchInput, setSearchInput] = useState<string>('')
+  const [unseenMessages, setUnseenMessages] = useState<messageType[]>([])
 
   const LastRef = useRef<HTMLDivElement>(null)
+
+
 
   // Scroll to last message
   useEffect(() => {
@@ -27,8 +32,10 @@ function Messages() {
   // Socket listener
   useEffect(() => {
     socket.on('receive-message', (message) => {
-      if (message.senderId !== thisUser._id) {
+      if (message.senderId !== thisUser._id && message.senderId === selectedUser._id) {
         setMessages(prev => [...prev, message])
+      } else if(message.senderId !== selectedUser._id){
+        setUnseenMessages(prev => [...prev, message])
       }
     })
 
@@ -36,6 +43,33 @@ function Messages() {
       socket.off('receive-message')
     }
   }, [socket])
+
+  // See Messages 
+  useEffect(() => {
+    const runSeeMessages = async () => {
+      const response = await seeMessages(selectedUser._id, token)
+      if(response.success){
+        setUnseenMessages(prev => prev.filter(unsnmsg => unsnmsg.senderId !== selectedUser._id ) )
+      } else {
+        alert(response.message)
+      }
+    }
+    if(isReady && selectedUser !== initState) runSeeMessages()
+  }, [isReady, selectedUser])
+
+  // Load Unseen Messages 
+  useEffect(() => {
+    const loadUnseenMessages = async () => {
+      const response = await getUnseenMessages(token) 
+      if(response.success){
+        setUnseenMessages(response.unseenMessages)
+        console.log(response.unseenMessages)
+      } else {
+        alert(response.message)
+      }
+    }
+    if(isReady) loadUnseenMessages()
+  }, [isReady])
 
   // Load all users
   useEffect(() => {
@@ -80,7 +114,8 @@ function Messages() {
 
   // Send message
   const sendMessage = () => {
-    const messageToSend: messageType = {
+    if(inputText !== ""){
+     const messageToSend: messageType = {
       senderId: thisUser._id,
       receiverId: selectedUser._id,
       text: inputText,
@@ -89,7 +124,8 @@ function Messages() {
     }
     socket.emit('send-message', messageToSend)
     setMessages(prev => [...prev, messageToSend])
-    setInputText('')
+    setInputText('') 
+    }
   }
 
   return (
@@ -100,7 +136,11 @@ function Messages() {
       <div className='w-[50%] h-screen relative border-r flex flex-col border-gray-600'>
         {/* Header */}
         <div className='flex flex-row bg-linear-to-t from-gray-950 to-gray-900 border-gray-700 border-b items-center'>
-          <p className='p-2 text-2xl cursor-pointer'>⬅️</p>
+          <p className='p-2 text-2xl cursor-pointer' onClick={() => {
+            setSelectedUser(initState)
+            setMessages([])
+            setInputText('')
+          } }>⬅️</p>
           <img
             src={selectedUser.imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
             className='w-20 h-20 rounded-full my-2 mx-3'
@@ -173,11 +213,14 @@ function Messages() {
         <div className='flex flex-col overflow-scroll'>
           {allUsers.map((user, indx) => {
             if (user._id === thisUser._id) return null
+            const unseenMessagesFromThisUser = unseenMessages.filter(msg => msg.senderId === user._id)
             return (
               <div
                 key={indx}
-                onClick={() => setSelectedUser(user)}
-                className={`hover:bg-gray-800 cursor-pointer transition-all duration-200 ${
+                onClick={() => {
+                  setSelectedUser(user)
+                }}
+                className={`hover:bg-gray-800 cursor-pointer relative transition-all duration-200 ${
                   user.name === selectedUser?.name ? 'bg-gray-900 hover:bg-gray-900' : 'bg-black'
                 } ${
                   user.name.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase()) ? '' : 'hidden'
@@ -194,6 +237,7 @@ function Messages() {
                         <p className='text-white font-medium cursor-pointer px-2'>{user.name}</p>
                         <p className='text-white font-normal p-2'>{clipLongText(user.bio)}</p>
                       </div>
+                      <span className={`bg-blue-500 top-10.5 right-5 w-4.5 text-center rounded-full text-sm text-white absolute ${unseenMessagesFromThisUser.length === 0 ? 'hidden' : ''}`}>{unseenMessagesFromThisUser.length}</span>
                     </div>
                   </div>
                 </div>

@@ -26,3 +26,25 @@ export const getMessages = async (req, res) => {
         return res.status(500).json({ success: false, message: `Server Error ${e.message}`})
         }
 }
+
+export const seeMessages = async (req, res) => {
+    const { id } = req.id
+    const { senderId } = req.query
+    try {
+        await Message.updateMany({receiverId: id, senderId: senderId}, {seen: true})
+        return res.status(200).json({ success: true, message: 'messages seen'})
+    } catch(e) {
+        return res.status(500).json({ success: false, message: `Server Error ${e.message}`})
+    }
+}
+
+export const getUnseenMessages = async (req, res) => {
+    const { id } = req.id
+    try {
+        const unseenMessages = await Message.find({receiverId: id, seen: false })
+        return res.status(200).json({ success: true, message: 'Unseen Messages fetched', unseenMessages: unseenMessages})
+    }
+    catch(e) {
+        return res.status(500).json({ success: false, message: `Server Error ${e.message}`})
+    }
+}

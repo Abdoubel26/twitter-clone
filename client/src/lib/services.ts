@@ -166,3 +166,25 @@ export const getMessages = async (senderId: string, receiverId: string) => {
     })
     return res.json()
 }
+
+export const seeMessages = async (senderId: string, token: string) => {
+    const res = await fetch(`${URL}/api/message/see?senderId=${senderId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`
+        }
+    })
+    return res.json()
+}
+
+export const getUnseenMessages = async (token: string) => {
+    const res = await fetch(`${URL}/api/message/unseen`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "applicaion/json",
+            "authorization": `Bearer ${token}`
+        }
+    })
+    return res.json()
+}
