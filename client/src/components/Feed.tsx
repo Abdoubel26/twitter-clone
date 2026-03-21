@@ -56,7 +56,6 @@ function Feed() {
 
 
 
-
   return (
     <div className='bg-black w-[50%] h-screen'>
       <div className='flex flex-row justify-between border-b border-b-gray-500'>
@@ -64,9 +63,9 @@ function Feed() {
         <h1 className='text-white transiton-all flex-1 text-center py-4 font-semibold  hover:bg-gray-900' >Following</h1>
         <h1 className='text-white transition-all flex-1 text-center py-4 font-semibold  hover:bg-gray-900'  >Groups</h1>
       </div>
-      <div className='overflow-y-scroll flex flex-col-reverse h-[89%]'>
+      <div className='overflow-y-scroll flex-col flex h-[89%]'>
         {
-          posts.map((post, indx) => {
+          posts.reverse().map((post, indx) => {
              return (
               <div key={indx} className='flex flex-row border-b border-b-gray-700'>
                 <div className='h-full'>

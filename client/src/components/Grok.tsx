@@ -1,8 +1,16 @@
+import { useState } from "react"
 import AiIcon from "../assets/ai-svgrepo-com.svg"
-import { messages } from "../assets/assets"
 
+type aiMessagesType = {
+  text: string,
+  fromAi: boolean,
+  createdAt: Date,
+}
 
 function Grok() {
+
+  const [aiMessages, setAiMessages] = useState<aiMessagesType[]>([])
+
   return (
     <div className='w-[50%] text-white'>
 
@@ -14,11 +22,11 @@ function Grok() {
 
       <div className=' bg-linear-to-t from-gray-950 to-gray-900 overflow-y-scroll max-h-[53%]'>
               {
-                messages.map((msg, indx) => {
+                aiMessages.map((msg, indx) => {
                   return (
-                    <div key={indx} className={`flex flex-row justify-start ${msg.senderId === 'user1' ? '' : 'flex-row-reverse' }`}>
+                    <div key={indx} className={`flex flex-row justify-start ${msg.fromAi ? '' : 'flex-row-reverse' }`}>
                       <div className='flex flex-col my-4'>
-                        <p className={` rounded-3xl p-2 mx-1  bg-gray-900 border-gray-600 border ${msg.senderId === 'user1' ? 'rounded-bl-none' : 'rounded-br-none'}`}>
+                        <p className={` rounded-3xl p-2 mx-1  bg-gray-900 border-gray-600 border ${msg.fromAi  ? 'rounded-bl-none' : 'rounded-br-none'}`}>
                         {msg.text}
                         </p>
                       </div>
