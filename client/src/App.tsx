@@ -30,7 +30,7 @@ function App() {
   
 
   return (
-    <div className=' overflow-hidden max-h-screen min-w-screen select-none'>
+    <div className=' overflow-hidden max-h-screen min-w-screen '>
     <Routes>
       <Route path='/login' element={<Login />}></Route>
       <Route path='/home' element={<Home />}>

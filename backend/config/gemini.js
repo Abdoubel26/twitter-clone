@@ -7,9 +7,14 @@ dotenv.config()
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY});
 
 export async function callGemini(prompt) {
-  const response = await ai.models.generateContent({
+  try {
+    const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: prompt,
   });
   return response
+  } catch(e) {
+    console.log(e.message + 'error in gemini.js')
+    return e
+  }
 }

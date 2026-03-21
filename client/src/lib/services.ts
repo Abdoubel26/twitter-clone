@@ -188,3 +188,15 @@ export const getUnseenMessages = async (token: string) => {
     })
     return res.json()
 }
+
+export const CallAi = async (text: string) => {
+    console.log('call ai in services if being called')
+    const res = await fetch(`${URL}/api/ai/gemini`, 
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({text: text})
+        }
+    )
+    return res.json()
+}

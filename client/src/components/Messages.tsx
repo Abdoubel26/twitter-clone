@@ -1,7 +1,7 @@
 import SideBar from './SideBar'
 import { formattedTime, clipLongText } from '../lib/utils'
 import { useSelectedUser } from '../context/selectedUserContext'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { getAllUsers, getMessages, getUnseenMessages, seeMessages } from '../lib/services'
 import { type userType, type messageType } from '../lib/types'
 import { useSocket } from '../context/socketContext'
@@ -84,6 +84,23 @@ function Messages() {
     loadUsers()
   }, [])
 
+  
+  // Send message
+  const sendMessage = useCallback(() => {
+    if(inputText !== "" && selectedUser !== initState){
+     const messageToSend: messageType = {
+      senderId: thisUser._id,
+      receiverId: selectedUser._id,
+      text: inputText,
+      seen: false,
+      createdAt: new Date()
+    }
+    socket.emit('send-message', messageToSend)
+    setMessages(prev => [...prev, messageToSend])
+    setInputText('') 
+    }
+  }, [inputText])
+
   // Load messages with selected user
   useEffect(() => {
     const loadMessages = async () => {
@@ -110,23 +127,8 @@ function Messages() {
     return () => {
       removeEventListener('keydown', handleEnter)
     }
-  })
+  }, [sendMessage])
 
-  // Send message
-  const sendMessage = () => {
-    if(inputText !== ""){
-     const messageToSend: messageType = {
-      senderId: thisUser._id,
-      receiverId: selectedUser._id,
-      text: inputText,
-      seen: false,
-      createdAt: new Date()
-    }
-    socket.emit('send-message', messageToSend)
-    setMessages(prev => [...prev, messageToSend])
-    setInputText('') 
-    }
-  }
 
   return (
     <div className='w-full flex-row flex min-h-screen bg-black text-white'>
