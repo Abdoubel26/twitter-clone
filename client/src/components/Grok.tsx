@@ -9,13 +9,14 @@ type aiMessagesType = {
   createdAt: Date,
 }
 
-type convaElementType = {
+type convoElementType = {
   ISaid: string,
   youSaid: string,
 }
 
 function Grok() {
 
+  const [convos, setConvos] = useState<convoElementType[]>([])
   const [aiMessages, setAiMessages] = useState<aiMessagesType[]>([{text: "Hi, how can I help you today?", fromAi: true, createdAt: new Date()}])
   const [inputText, setInputText] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -27,16 +28,16 @@ function Grok() {
   }, [aiMessages])
 
   const HandleSend = () => {
-    console.log('hanlde send called')
+    const textAndConvos = convos.map(convo => `I Said: ${convo.ISaid}  You Said: ${convo.youSaid}`).join(' ').concat(` prompt: ${inputText}`)
     if(inputText !== '' && !isLoading){
       const Send = async () => {
       const userMessage: aiMessagesType = {
-        text: inputText,
+        text: textAndConvos,
         fromAi: false,
         createdAt: new Date()
       }
       setIsLoading(true)
-      setAiMessages(prev => [...prev, userMessage])
+      setAiMessages(prev => [...prev, {...userMessage, text: inputText}])
       setInputText('')
       const airesponse = await CallAi(inputText)
       console.log(airesponse)
@@ -46,6 +47,7 @@ function Grok() {
           fromAi: true,
           createdAt: new Date()
         }
+        setConvos(prev => [...prev, {ISaid: inputText, youSaid: aimessage.text}])
         setAiMessages(prev => [...prev, aimessage])
       } else {
         const errorMessage: aiMessagesType = {
@@ -53,6 +55,7 @@ function Grok() {
           fromAi: true,
           createdAt: new Date()
         }
+        setConvos(prev => [...prev, {ISaid: inputText, youSaid: '{There was an error reaching you (no reply)}'}])
         setAiMessages(prev => [...prev, errorMessage])
       }
       setIsLoading(false)
