@@ -73,3 +73,14 @@ export const toggleLike = async (req, res) => {
         return res.status(500).json({ success: false, message: `Server Error: ${e.message}` })
     }    
 }
+
+export const searchForPosts = async (req, res) => {
+    const { text } = req.body
+    if(!text) return res.status(400).json({ success: false, message: 'Missing required fields'})
+    try {
+        const posts = await Post.find({ $text: { $search: text} }, { score: { $meta: 'textScore'}}).sort({ score: { $meta: 'textScore'}}).populate('poster')
+        return res.status(200).json({ success: true, message: "Posts searched", posts: posts})
+    } catch(e) {
+        return res.status(500).json({ success: false, message: `Server Error: ${e.message}`})
+    }
+}

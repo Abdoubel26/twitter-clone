@@ -4,6 +4,8 @@ import type { postType } from "./types"
 const URL = "http://localhost:5000"
 
 
+// user services
+
 export const signup = async (name: string, password: string, email: string, bio: string) => {
     const res = await fetch(URL+'/api/user/signup', {
         method: "POST", 
@@ -48,6 +50,17 @@ export const getAllUsers = async () => {
     })
     return res.json()
 }
+
+export const searchUsers = async (text: string) => {
+    const res = await fetch(`${URL}/api/user/search`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({text: text})
+    })
+    return res.json()
+} 
+
+// post services
 
 
 export const getPosts = async () => {
@@ -96,6 +109,17 @@ export const toggleLike = async (postId: string, token: string) => {
     return res.json()
 }
 
+export const searchPosts = async (text: string) => {
+    const res = await fetch(`${URL}/api/post/search`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({text: text})
+    })
+    return res.json()
+} 
+
+// follow services
+
 export const getFollows = async () => {
     const res = await fetch(`${URL}/api/follow/get`, {
         method: 'GET',
@@ -126,6 +150,8 @@ export const unfollow = async (relationId: string, token: string) => {
     })
     return res.json()
 }
+
+// notifications services
 
 export const getNotifications = async (token: string) => {
     const res = await fetch(`${URL}/api/notification/get`, {
@@ -159,6 +185,8 @@ export const seeNotifs = async (token: string) => {
     return res.json()
 }
 
+// message services
+
 export const getMessages = async (senderId: string, receiverId: string) => {
     const res = await fetch(`${URL}/api/message/get?senderId=${senderId}&receiverId=${receiverId}`, {
         method: 'GET',
@@ -188,6 +216,8 @@ export const getUnseenMessages = async (token: string) => {
     })
     return res.json()
 }
+
+// ai services
 
 export const CallAi = async (text: string) => {
     console.log('call ai in services if being called')

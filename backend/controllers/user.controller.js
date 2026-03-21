@@ -91,3 +91,15 @@ export const getAllUsers = async (req, res) => {
         return res.status(500).json({ success: false, message: `Server Error: ${e.message}`})
     }
 }
+
+
+
+export const searchUsers = async (req, res) => {
+    const { text } = req.body
+    try {
+        const users = await User.find({ $text: { $search: text}}, { score: {$meta: "textScore"}}).sort({ score: { $meta: 'textScore'}})
+        return res.status(200).json({ success: true, message: 'users searched', users: users})
+    } catch(e) {
+        return res.status(500).json({ success: false, message: `Server Error: ${e.message}`})
+    }
+}

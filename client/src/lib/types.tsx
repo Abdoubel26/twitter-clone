@@ -11,7 +11,7 @@ export interface userType {
 export interface postType {
     text: string,
     _id: string,
-    imageUrl: string,
+    imageUrl?: string,
     likes: string[],
     poster: userType
 }

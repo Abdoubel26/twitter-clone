@@ -10,5 +10,6 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true}
 })
 
+userSchema.index({name: 'text', bio: 'text'})
 
 export default mongoose.model("User", userSchema)

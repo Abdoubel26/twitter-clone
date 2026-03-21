@@ -10,9 +10,9 @@ type post = {
   imageUrl: string,
   likes: string[],
   poster: {
-    name: string,
-    imageUrl: string
-    _id: string
+  name: string,
+  imageUrl: string
+  _id: string
   }
 }
 
