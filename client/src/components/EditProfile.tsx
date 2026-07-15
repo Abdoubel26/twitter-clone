@@ -19,25 +19,55 @@ function EditProfile() {
         }
     }
 
-
   return (
-    <div className='w-1/2 h-screen flex flex-col items-center justify-center   p-15 bg-linear-to-l from-gray-950 to-gray-900'>
+    <div className='bg-black w-full min-h-screen flex justify-center items-center flex-col border-r border-green-950 font-mono text-green-400'>
         
-         <form className='flex flex-col w-120 ' onSubmit={(e) => handleSubmit(e)}>
-            <input value={thisUser.name} onChange={(e) => setThisUser( (prev) => ({ ...prev, name: e.target.value }) )} className={` my-2  rounded-full text-xl p-2 pl-4 outline-none font-semibold placeholder:font-normal text-white placeholder:text-gray-600 bg-gray-950 border-gray-800 border`} type='text'  placeholder='Full Name'></input>
-            <textarea value={thisUser.bio} onChange={(e) => setThisUser( (prev) => ({ ...prev, bio: e.target.value }) )}  rows={3}  className={`mt-2 resize-none rounded text-xl p-2 pl-4 outline-none font-semibold placeholder:font-normal text-white placeholder:text-gray-600 bg-gray-950 border-gray-800 border`} placeholder='Biography'></textarea>
-            <input value={thisUser.imageUrl} onChange={(e) => setThisUser( (prev) => ({ ...prev, imageUrl: e.target.value }) )} className={` my-2 rounded-full text-xl p-2 pl-4 outline-none font-semibold placeholder:font-normal text-white placeholder:text-gray-600 bg-gray-950 border-gray-800 border`} type='text'  placeholder='Profile Image URL'></input>
-            <input value={thisUser.bannerImageUrl} onChange={(e) => setThisUser( (prev) => ({ ...prev, bannerImageUrl: e.target.value }) )} className={` my-2 rounded-full text-xl p-2 pl-4 outline-none font-semibold placeholder:font-normal text-white placeholder:text-gray-600 bg-gray-950 border-gray-800 border`} type='text'  placeholder='Banner Image URL'></input>
-            <button type='submit' className='bg-gray-100 cursor-pointer hover:bg-gray-300 active:bg-white transition-all duration-200 text-black font-semibold rounded-full text-2xl py-2 mb-2 '>
+         <form className='flex flex-col w-full max-w-lg border-2 border-zinc-700 p-6 md:p-8 bg-zinc-900/50 shadow-[4px_4px_0px_0px_rgba(63,63,70,1)]' onSubmit={(e) => handleSubmit(e)}>
+            <h2 className="text-2xl font-bold text-white mb-6 border-b border-zinc-700 pb-2 uppercase tracking-widest">Edit Profile</h2>
+
+            <label className="text-xs text-zinc-500 uppercase font-semibold">Full Name</label>
+            <input 
+                value={thisUser.name} 
+                onChange={(e) => setThisUser((prev) => ({ ...prev, name: e.target.value }))} 
+                className="my-2 rounded-none text-lg p-2.5 outline-none font-semibold text-white bg-zinc-950 border-zinc-700 border focus:border-zinc-400 transition-all" 
+                type='text' 
+                placeholder='Full Name'
+            />
+
+            <label className="text-xs text-zinc-500 uppercase font-semibold mt-2">Biography</label>
+            <textarea 
+                value={thisUser.bio} 
+                onChange={(e) => setThisUser((prev) => ({ ...prev, bio: e.target.value }))} 
+                rows={3} 
+                className="my-2 resize-none rounded-none text-lg p-2.5 outline-none font-semibold text-white bg-zinc-950 border-zinc-700 border focus:border-zinc-400 transition-all" 
+                placeholder='Biography'
+            />
+
+            <label className="text-xs text-zinc-500 uppercase font-semibold mt-2">Profile Image URL</label>
+            <input 
+                value={thisUser.imageUrl} 
+                onChange={(e) => setThisUser((prev) => ({ ...prev, imageUrl: e.target.value }))} 
+                className="my-2 rounded-none text-lg p-2.5 outline-none font-semibold text-white bg-zinc-950 border-zinc-700 border focus:border-zinc-400 transition-all" 
+                type='text' 
+                placeholder='Profile Image URL'
+            />
+
+            <label className="text-xs text-zinc-500 uppercase font-semibold mt-2">Banner Image URL</label>
+            <input 
+                value={thisUser.bannerImageUrl} 
+                onChange={(e) => setThisUser((prev) => ({ ...prev, bannerImageUrl: e.target.value }))} 
+                className="my-2 rounded-none text-lg p-2.5 outline-none font-semibold text-white bg-zinc-950 border-zinc-700 border focus:border-zinc-400 transition-all" 
+                type='text' 
+                placeholder='Banner Image URL'
+            />
+
+            <button type='submit' className='bg-white cursor-pointer hover:bg-zinc-300 active:bg-white text-black font-extrabold text-xl py-3 mt-4 mb-2 uppercase tracking-wide border-2 border-black active:translate-y-[2px] transition-transform'>
                 Update Profile
             </button>
-            <button type='button' onClick={() => navigate('/home')} className='bg-gray-500 cursor-pointer hover:bg-gray-400 active:bg-white transition-all duration-200 text-black font-semibold rounded-full text-2xl py-2 mb-2 '>
+            <button type='button' onClick={() => navigate('/home')} className='bg-zinc-800 cursor-pointer hover:bg-zinc-700 text-zinc-300 font-semibold text-lg py-2 uppercase tracking-wide border border-zinc-600'>
                 Cancel
             </button>
-
-
-            </form>
-      
+        </form>
     </div>
   )
 }

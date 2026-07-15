@@ -1,9 +1,8 @@
-import express from 'express'
-import { getTextAndCallAI } from '../controllers/ai.controller.js'
+import express from "express";
+import { getTextAndCallAI } from "../controllers/ai.controller.js";
 
-const router = express.Router()
+const router = express.Router();
 
+router.post("/groq", getTextAndCallAI);
 
-router.post('/gemini', getTextAndCallAI)
-
-export default router
+export default router;

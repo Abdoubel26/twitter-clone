@@ -4,7 +4,6 @@ import type { postType } from "./types"
 const URL = "http://localhost:5000"
 
 
-// user services
 
 export const signup = async (name: string, password: string, email: string, bio: string) => {
     const res = await fetch(URL+'/api/user/signup', {
@@ -60,7 +59,6 @@ export const searchUsers = async (text: string) => {
     return res.json()
 } 
 
-// post services
 
 
 export const getPosts = async () => {
@@ -118,7 +116,6 @@ export const searchPosts = async (text: string) => {
     return res.json()
 } 
 
-// follow services
 
 export const getFollows = async () => {
     const res = await fetch(`${URL}/api/follow/get`, {
@@ -151,7 +148,6 @@ export const unfollow = async (relationId: string, token: string) => {
     return res.json()
 }
 
-// notifications services
 
 export const getNotifications = async (token: string) => {
     const res = await fetch(`${URL}/api/notification/get`, {
@@ -185,7 +181,6 @@ export const seeNotifs = async (token: string) => {
     return res.json()
 }
 
-// message services
 
 export const getMessages = async (senderId: string, receiverId: string) => {
     const res = await fetch(`${URL}/api/message/get?senderId=${senderId}&receiverId=${receiverId}`, {
@@ -210,23 +205,35 @@ export const getUnseenMessages = async (token: string) => {
     const res = await fetch(`${URL}/api/message/unseen`, {
         method: 'GET',
         headers: {
-            "Content-Type": "applicaion/json",
+            "Content-Type": "application/json",
             "authorization": `Bearer ${token}`
         }
     })
     return res.json()
 }
 
-// ai services
 
-export const CallAi = async (text: string) => {
-    console.log('call ai in services if being called')
-    const res = await fetch(`${URL}/api/ai/gemini`, 
-        {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({text: text})
-        }
-    )
-    return res.json()
+export async function runChat(prompt: string) {
+  try {
+    const res = await fetch(`${URL}/api/ai/groq`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      console.error("API Error:", error);
+      throw new Error(error.error || `Server error: ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.log("Response received successfully");
+    return data
+  } catch (error) {
+    console.error("Chat Error:", error);
+    throw error;
+  }
 }

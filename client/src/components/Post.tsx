@@ -15,14 +15,15 @@ function Post() {
     poster: thisUser
   })
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const post = {
       text: inputPost.text,
       imageUrl: inputPost.imageUrl,
       poster: thisUser,
       likeCount: 0,
     }
-    const response = await addPost(post, token)
+    const response = await addPost(post as any, token)
     if(response.success){
       navigate('/home')
     } else {
@@ -31,17 +32,34 @@ function Post() {
   }
 
   return (
-    <div className='w-[50%] h-screen bg-linear-to-l from-gray-950 to-gray-900'>
+    <div className='bg-black w-full min-h-screen flex flex-col border-r p-20 border-green-950 font-mono text-green-400'>
+      <form onSubmit={handleSubmit} className='w-full max-w-lg border-2 border-zinc-700 p-6 md:p-8 bg-zinc-900/50 shadow-[4px_4px_0px_0px_rgba(63,63,70,1)] flex flex-col'>
+        <h2 className="text-xl font-bold text-white mb-6 uppercase tracking-wider border-b border-zinc-700 pb-2">Transmit Post</h2>
 
-      <form onSubmit={handleSubmit} className='w-full h-full flex flex-col items-center justify-center'>
-      <textarea placeholder='Post Text' onChange={e => setInputPost( prev => ( {...prev, text: e.target.value} ))} value={inputPost.text} rows={3} className='bg-black placeholder:text-gray-500 resize-none border border-gray-700 rounded-2xl p-3 w-100 outline-none text-white font-medium' required ></textarea>
-      <input placeholder='Paste Post Image URL'  onChange={e => setInputPost( prev => ( {...prev, imageUrl: e.target.value} ))} value={inputPost.imageUrl} type='URL' className='bg-black placeholder:text-gray-500 resize-none border border-gray-700 rounded-2xl p-4 w-100 outline-none text-white font-medium my-4'></input>
-      <button type="submit" className=' w-100 my-3 text-black p-2 rounded-full font-extrabold cursor-pointer hover:bg-gray-300 transition-all duration-200 bg-gray-100 active:bg-white'>
-        Post
-      </button>
+        <textarea 
+          placeholder='Write your transmission text...' 
+          onChange={e => setInputPost(prev => ({...prev, text: e.target.value}))} 
+          value={inputPost.text} 
+          rows={4} 
+          className='bg-zinc-950 placeholder-zinc-600 resize-none border border-zinc-700 p-3 w-full outline-none text-white font-medium focus:border-zinc-400' 
+          required 
+        />
+        
+        <input 
+          placeholder='Image URL (Optional)'  
+          onChange={e => setInputPost(prev => ({...prev, imageUrl: e.target.value}))} 
+          value={inputPost.imageUrl} 
+          type='url' 
+          className='bg-zinc-950 placeholder-zinc-600 border border-zinc-700 p-3 w-full outline-none text-white font-medium my-4 focus:border-zinc-400' 
+        />
 
+        <button 
+          type="submit" 
+          className='w-full mt-2 text-black p-3 bg-white font-extrabold border-2 border-white cursor-pointer hover:bg-zinc-300 transition-all uppercase tracking-wider text-base active:translate-y-[2px]'
+        >
+          Post Transmission
+        </button>
       </form>
-      
     </div>
   )
 }
