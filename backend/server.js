@@ -11,42 +11,42 @@ import cors from 'cors'
 import { Server } from 'socket.io'
 import http from 'http'
 
-
 const app = express()
 
 app.use(express.json())
 
 const server = http.createServer(app)
 
-const io = new Server(server, { cors: {
-    origin: "http://localhost:5173",
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL, 
+  "http://localhost:5173"
+].filter(Boolean);
+
+const io = new Server(server, { 
+  cors: {
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
-}})
+  }
+})
 
 io.on('connection', (socket) => {
-
     socket.on('send-message', (message) => {
         addMessage(message)
-        socket.broadcast.emit('receive-message', (message))
+        socket.broadcast.emit('receive-message', message)
     })
-
-
 
     socket.on('disconnect', () => {
         console.log("disconnected:" + socket.id)
     })
 })
 
-app.use(cors(
-    {
-        origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
-))
-
-
+app.use(cors({
+    origin: allowedOrigins.length > 0 ? allowedOrigins : "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}))
 
 app.use('/api/user', userRouter)
 app.use('/api/post', postRouter)
@@ -58,6 +58,9 @@ app.use('/api/ai/', AIRouter)
 connectDB()
 
 
-server.listen('5000', () => {
-    console.log('app listening in port 5000')
-}) 
+
+const PORT = process.env.PORT || 5000
+
+server.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`)
+})

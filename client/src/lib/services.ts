@@ -1,8 +1,7 @@
 import type { postType } from "./types"
 
 
-const URL = "http://localhost:5000"
-
+const URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
 
 export const signup = async (name: string, password: string, email: string, bio: string) => {

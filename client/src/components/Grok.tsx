@@ -27,39 +27,46 @@ function Grok() {
   }, [aiMessages])
 
   const HandleSend = () => {
-    const textAndConvos = convos.map(convo => `I Said: ${convo.ISaid}  You Said: ${convo.youSaid}`).join(' ').concat(` prompt: ${inputText}`)
     if(inputText.trim() !== '' && !isLoading){
+      // 🟢 STRUCTURED PROMPT INJECTION: Formats the full log so the model remembers context
+      const promptWithHistory = convos
+        .map(convo => `User: ${convo.ISaid}\nAssistant: ${convo.youSaid}`)
+        .join('\n\n')
+        .concat(`\n\nUser: ${inputText}`)
+
       const Send = async () => {
-      const userMessage: aiMessagesType = {
-        text: textAndConvos,
-        fromAi: false,
-        createdAt: new Date()
-      }
-      setIsLoading(true)
-      setAiMessages(prev => [...prev, {...userMessage, text: inputText}])
-      setInputText('')
-      const airesponse = await runChat(inputText)
-      
-      if(airesponse.success){
-        const aimessage: aiMessagesType = {
-          text: airesponse.text,
-          fromAi: true,
+        const userMessage: aiMessagesType = {
+          text: inputText,
+          fromAi: false,
           createdAt: new Date()
         }
-        setConvos(prev => [...prev, {ISaid: inputText, youSaid: aimessage.text}])
-        setAiMessages(prev => [...prev, aimessage])
-      } else {
-        const errorMessage: aiMessagesType = {
-          text: "Sorry, I couldn't process your request. Please try again.",
-          fromAi: true,
-          createdAt: new Date()
+        setIsLoading(true)
+        setAiMessages(prev => [...prev, userMessage])
+        setInputText('')
+        
+        // 🟢 FIX: We now transmit the injected history prompt instead of just the isolated input
+        const airesponse = await runChat(promptWithHistory)
+        
+        if(airesponse.success){
+          const aimessage: aiMessagesType = {
+            text: airesponse.text,
+            fromAi: true,
+            createdAt: new Date()
+          }
+          setConvos(prev => [...prev, {ISaid: inputText, youSaid: aimessage.text}])
+          setAiMessages(prev => [...prev, aimessage])
+        } else {
+          const errorMessage: aiMessagesType = {
+            text: "Sorry, I couldn't process your request. Please try again.",
+            fromAi: true,
+            createdAt: new Date()
+          }
+          setConvos(prev => [...prev, {ISaid: inputText, youSaid: '{There was an error reaching you (no reply)}'}])
+          setAiMessages(prev => [...prev, errorMessage])
         }
-        setConvos(prev => [...prev, {ISaid: inputText, youSaid: '{There was an error reaching you (no reply)}'}])
-        setAiMessages(prev => [...prev, errorMessage])
+        setIsLoading(false)
       }
-      setIsLoading(false)
-    }
-    Send()
+      Send()
     } 
   }
 
@@ -74,7 +81,7 @@ function Grok() {
     return () => {
       window.removeEventListener('keydown', handleEnter)
     }
-  }, [inputText])
+  }, [inputText, convos, isLoading]) // Added dependencies to ensure effect has the latest state
 
   return (
     <div className='bg-black w-full h-full flex flex-col border-r border-r-gray-700 relative overflow-hidden'>  
