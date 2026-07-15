@@ -163,7 +163,7 @@ function Messages() {
             <div className='flex flex-row bg-zinc-950 border-green-950 border-b items-center p-3 justify-between shrink-0'>
               <div className="flex flex-row items-center min-w-0">
                 <button 
-                  className='text-red-500 font-bold text-xs uppercase px-2 py-1 border border-red-900 hover:bg-red-950/30 active:translate-y-[1px] mr-3' 
+                  className='text-red-500 font-bold text-xs uppercase px-2 py-1 border border-red-900 hover:bg-red-950/30 active:translate-y-px mr-3' 
                   onClick={() => {
                     setSelectedUser(initState)
                     setMessages([])
@@ -235,7 +235,7 @@ function Messages() {
                   />
                   <button
                     onClick={() => sendMessage()}
-                    className='bg-transparent text-green-400 font-bold py-2 px-4 border border-green-500 hover:bg-green-500/20 active:translate-y-[1px] text-xs uppercase tracking-wider shadow-[2px_2px_0px_#22c55e]'
+                    className='bg-transparent text-green-400 font-bold py-2 px-4 border border-green-500 hover:bg-green-500/20 active:translate-y-px text-xs uppercase tracking-wider shadow-[2px_2px_0px_#22c55e]'
                   >
                     [ SEND ]
                   </button>
@@ -301,7 +301,7 @@ function Messages() {
 
       <div className={`
         fixed inset-y-0 right-0 z-40 w-[85%] sm:w-100 transform transition-transform duration-300 ease-in-out h-full
-        lg:relative lg:translate-x-0 lg:w-[350px] lg:flex lg:z-0 shrink-0
+        lg:relative lg:translate-x-0 lg:w-87.5 lg:flex lg:z-0 shrink-0
         ${isProfileOpen ? "translate-x-0" : "translate-x-full"}
       `}>
         <Profile isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />

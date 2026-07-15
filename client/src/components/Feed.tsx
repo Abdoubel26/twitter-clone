@@ -68,7 +68,7 @@ function Feed() {
                 <div className='flex flex-row justify-between items-baseline'>
                   <p className='text-white font-bold text-base cursor-pointer hover:underline truncate'>{post.poster.name}</p>  
                 </div>
-                <p className='text-zinc-100 py-1 text-lg font-medium break-words'>{post.text}</p>
+                <p className='text-zinc-100 py-1 text-lg font-medium wrap-break-word'>{post.text}</p>
                 
                 {post.imageUrl && (
                   <div className="my-2 max-w-full overflow-hidden border border-zinc-800">

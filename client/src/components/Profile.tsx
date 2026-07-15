@@ -102,7 +102,7 @@ function Profile({ isOpen = true, onClose }: ProfileProps) {
             src={thisUser.bannerImageUrl || ' '} 
             alt="Banner"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-black to-transparent opacity-60"></div>
           
           <div className='absolute top-20 left-4 z-10 p-1 bg-black border-2 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]'>
             <img 

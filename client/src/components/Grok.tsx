@@ -122,7 +122,7 @@ function Grok() {
           />
           <button 
             onClick={HandleSend} 
-            className='bg-white text-black font-bold py-2.5 px-6 border-2 border-white hover:bg-zinc-300 active:translate-y-[1px] transition-all uppercase text-sm tracking-wider shrink-0'
+            className='bg-white text-black font-bold py-2.5 px-6 border-2 border-white hover:bg-zinc-300 active:translate-y-px transition-all uppercase text-sm tracking-wider shrink-0'
           >
             Send
           </button>

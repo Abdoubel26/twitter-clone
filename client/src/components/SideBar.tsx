@@ -89,7 +89,7 @@ function SideBar({ closeSidebar }: SideBarProps) {
         </div>
         
         <NavLink to='/home/post' onClick={handleItemClick}>
-          <div className="bg-green-500 hover:bg-green-400 text-black font-bold p-2.5 sm:p-3 flex justify-center items-center gap-2 tracking-wider uppercase text-xs sm:text-sm shadow-[2px_2px_0px_#22c55e] active:translate-y-[1px]">
+          <div className="bg-green-500 hover:bg-green-400 text-black font-bold p-2.5 sm:p-3 flex justify-center items-center gap-2 tracking-wider uppercase text-xs sm:text-sm shadow-[2px_2px_0px_#22c55e] active:translate-y-px">
             <PenIcon /><span className="md:hidden lg:inline">Post</span>
           </div>
         </NavLink>

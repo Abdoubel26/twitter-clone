@@ -68,7 +68,7 @@ function Follow() {
                   <img className='w-14 h-14 object-cover border border-zinc-700' src={user.imageUrl} alt={user.name} />
                   <div className="min-w-0">
                     <p className='text-white font-bold cursor-pointer hover:underline text-lg truncate'>{user.name}</p>
-                    <p className='text-zinc-400 text-sm mt-1 break-words'>{clipLongText(user.bio)}</p>
+                    <p className='text-zinc-400 text-sm mt-1 wrap-break-word'>{clipLongText(user.bio)}</p>
                   </div>
                 </div>
                 

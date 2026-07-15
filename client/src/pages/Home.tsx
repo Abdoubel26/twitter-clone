@@ -50,7 +50,7 @@ function Home() {
 
       <div className={`
         fixed inset-y-0 right-0 z-40 w-[85%] sm:w-100 transform transition-transform duration-300 ease-in-out h-full
-        lg:relative lg:translate-x-0 lg:w-[350px] lg:flex lg:z-0 shrink-0
+        lg:relative lg:translate-x-0 lg:w-87.5 lg:flex lg:z-0 shrink-0
         ${isProfileOpen ? "translate-x-0" : "translate-x-full"}
       `}>
         <Profile isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
